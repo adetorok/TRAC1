@@ -18,9 +18,11 @@ const SiteLanding = () => {
     setTimeout(() => {
       const formElement = document.getElementById('contact-form-section');
       if (formElement) {
-        formElement.scrollIntoView({ behavior: 'smooth' });
+        formElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        console.log('Contact form section not found');
       }
-    }, 100);
+    }, 300);
   };
 
   const handleFormSuccess = (email) => {

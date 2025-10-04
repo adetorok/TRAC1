@@ -79,13 +79,15 @@ const Home = () => {
     setFormType(role);
     setShowForm(true);
     setSuccessEmail('');
-    // Scroll to the form section
+    // Scroll to the form section with longer timeout to ensure rendering
     setTimeout(() => {
       const contactElement = document.getElementById('contact-form-section');
       if (contactElement) {
-        contactElement.scrollIntoView({ behavior: 'smooth' });
+        contactElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        console.log('Contact form section not found');
       }
-    }, 100);
+    }, 300);
   };
 
   // Handle scroll to contact section when URL hash is #contact
