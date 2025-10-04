@@ -11,7 +11,7 @@ function Footer() {
                     <img 
                       src="/TRUST/trust-logo-new.png" 
                       alt="TRUST Logo" 
-                      className="h-10 w-12 object-contain"
+                      className="h-50 w-60 object-contain"
                     />
                     <h4 className="text-lg font-semibold text-white">TRUST</h4>
                   </div>

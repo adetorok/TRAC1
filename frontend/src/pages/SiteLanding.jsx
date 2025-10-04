@@ -39,9 +39,9 @@ const SiteLanding = () => {
         {/* Logo in top right */}
         <div className="absolute top-6 right-6 z-20">
           <img 
-            src="/trust-logo-new.png" 
+            src="/TRUST/trust-logo-new.png" 
             alt="TRUST Logo" 
-            className="h-20 w-24 object-contain opacity-90"
+            className="h-100 w-120 object-contain opacity-90"
           />
         </div>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">

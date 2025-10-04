@@ -69,7 +69,7 @@ const Navbar = () => {
                     <img 
                       src="/TRUST/trust-logo-new.png" 
                       alt="TRUST Logo" 
-                      className="h-12 w-16 object-contain"
+                      className="h-60 w-80 object-contain"
                     />
                     <span className="text-2xl font-bold text-[#56F0C8]">TRUST</span>
                   </Link>
