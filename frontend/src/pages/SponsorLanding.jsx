@@ -12,6 +12,7 @@ const SponsorLanding = () => {
   };
 
   const handleRoleSelect = (role) => {
+    setFormType(role);
     setShowForm(true);
     setSuccessEmail('');
     setTimeout(() => {

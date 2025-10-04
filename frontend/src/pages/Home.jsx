@@ -150,20 +150,91 @@ const Home = () => {
               </div>
             </div>
             
-            {/* Right side - Badges */}
-            <div className="flex flex-col space-y-4">
-              <span className="bg-[#56F0C8] text-[#0B1220] px-6 py-3 rounded-full text-sm font-semibold text-center">
-                Enrollment-focused
-              </span>
-              <span className="bg-[#16B1F0] text-white px-6 py-3 rounded-full text-sm font-semibold text-center">
-                Nurse-led pre-screen
-              </span>
-              <span className="bg-[#10224E] text-[#E8EEFC] px-6 py-3 rounded-full text-sm font-semibold text-center">
-                Community Outreach Recruitment
-              </span>
-              <span className="bg-[#56F0C8] text-[#0B1220] px-6 py-3 rounded-full text-sm font-semibold text-center">
-                IRB/ICH-GCP aligned
-              </span>
+            {/* Right side - Interactive Process Flow */}
+            <div className="flex flex-col space-y-3">
+              <div className="flex items-center space-x-2">
+                <div className="relative group">
+                  <span className="bg-[#56F0C8] text-[#0B1220] px-4 py-2 rounded-full text-sm font-semibold cursor-pointer hover:bg-[#56F0C8]/80 transition-colors">
+                    Enrollment
+                  </span>
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
+                    Our primary focus is meeting enrollment targets
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                  </div>
+                </div>
+                <span className="text-[#56F0C8] text-lg">→</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="relative group">
+                  <span className="bg-[#16B1F0] text-white px-4 py-2 rounded-full text-sm font-semibold cursor-pointer hover:bg-[#16B1F0]/80 transition-colors">
+                    Materials
+                  </span>
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
+                    IRB approved flyers, brochures, and landing pages
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                  </div>
+                </div>
+                <span className="text-[#16B1F0] text-lg">→</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="relative group">
+                  <span className="bg-[#10224E] text-[#E8EEFC] px-4 py-2 rounded-full text-sm font-semibold cursor-pointer hover:bg-[#10224E]/80 transition-colors">
+                    Strategy
+                  </span>
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
+                    Simultaneously identify communities and create strategies
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                  </div>
+                </div>
+                <span className="text-[#10224E] text-lg">→</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="relative group">
+                  <span className="bg-[#56F0C8] text-[#0B1220] px-4 py-2 rounded-full text-sm font-semibold cursor-pointer hover:bg-[#56F0C8]/80 transition-colors">
+                    Community
+                  </span>
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
+                    Primary outreach through local community engagement
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                  </div>
+                </div>
+                <span className="text-[#56F0C8] text-lg">→</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="relative group">
+                  <span className="bg-[#16B1F0] text-white px-4 py-2 rounded-full text-sm font-semibold cursor-pointer hover:bg-[#16B1F0]/80 transition-colors">
+                    Marketing
+                  </span>
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
+                    Online marketing to reach broader audience
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                  </div>
+                </div>
+                <span className="text-[#16B1F0] text-lg">→</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="relative group">
+                  <span className="bg-[#10224E] text-[#E8EEFC] px-4 py-2 rounded-full text-sm font-semibold cursor-pointer hover:bg-[#10224E]/80 transition-colors">
+                    Screening
+                  </span>
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
+                    Nurse-led pre-screening for eligibility verification
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                  </div>
+                </div>
+                <span className="text-[#10224E] text-lg">→</span>
+              </div>
+              <div className="flex items-center">
+                <div className="relative group">
+                  <span className="bg-[#56F0C8] text-[#0B1220] px-4 py-2 rounded-full text-sm font-semibold font-bold cursor-pointer hover:bg-[#56F0C8]/80 transition-colors">
+                    ✓ Eligible
+                  </span>
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
+                    Qualified, pre-screened subjects ready for enrollment
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

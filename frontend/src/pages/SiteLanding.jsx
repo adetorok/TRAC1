@@ -12,6 +12,7 @@ const SiteLanding = () => {
   };
 
   const handleRoleSelect = (role) => {
+    setFormType(role);
     setShowForm(true);
     setSuccessEmail('');
     setTimeout(() => {

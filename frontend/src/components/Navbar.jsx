@@ -15,7 +15,18 @@ const Navbar = () => {
   const handleRoleSelect = (role) => {
     setShowRoleModal(false);
     // Navigate to home page and scroll to form
-    window.location.href = '/#contact-form-section';
+    if (window.location.pathname === '/') {
+      // If already on home page, just scroll to form
+      setTimeout(() => {
+        const formElement = document.getElementById('contact-form-section');
+        if (formElement) {
+          formElement.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      // If on different page, navigate to home page with hash
+      window.location.href = '/#contact-form-section';
+    }
   };
 
   const handleNavClick = (path) => {
