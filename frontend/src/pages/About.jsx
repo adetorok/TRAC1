@@ -39,22 +39,29 @@ const About = () => {
         onRoleSelect={handleRoleSelect}
       />
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[#0B1220] to-[#10224E] py-20 sm:py-24 lg:py-32">
-        {/* Logo in top right */}
-        <div className="absolute top-6 right-6 z-20">
-          <img 
-            src="/TRUST/trust-logo-new.png" 
-            alt="TRUST Logo" 
-            className="h-100 w-120 object-contain opacity-90"
-          />
-        </div>
+      <section className="relative bg-gradient-to-br from-teal-50 to-blue-50 py-20 sm:py-24 lg:py-32">
+        {/* Full hero background icon */}
+        <img
+          src={`${import.meta.env.BASE_URL}trust-icon.png`}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-contain opacity-30 pointer-events-none select-none transform origin-center scale-[4] -translate-x-[8%]"
+        />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#E8EEFC] leading-tight mb-6">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight mb-6">
             About TRUST
           </h1>
-          <p className="text-lg sm:text-xl text-[#A4B0CC] max-w-3xl mx-auto mb-10">
+          <p className="text-lg sm:text-xl text-slate-700 max-w-3xl mx-auto mb-10">
             TRUST recruits qualified subjects so sites and sponsors hit enrollment targets—fast and predictably. We combine community outreach and nurse-led pre-screening to reduce screen fails and coordinator burden.
           </p>
+          <div className="mt-2">
+            <button
+              onClick={handleRequestProposalClick}
+              className="bg-[#16B1F0] text-white font-bold px-8 py-3 rounded-lg hover:bg-[#10224E] transition-colors shadow-lg text-lg"
+            >
+              Request Your Proposal
+            </button>
+          </div>
         </div>
       </section>
 

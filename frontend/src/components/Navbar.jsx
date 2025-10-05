@@ -14,18 +14,24 @@ const Navbar = () => {
 
   const handleRoleSelect = (role) => {
     setShowRoleModal(false);
-    // Navigate to home page and scroll to form
-    if (window.location.pathname === '/') {
-      // If already on home page, just scroll to form
-      setTimeout(() => {
-        const formElement = document.getElementById('contact-form-section');
-        if (formElement) {
-          formElement.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100);
+    try {
+      localStorage.setItem('pendingRole', role);
+    } catch {}
+    // Route based on role; target pages will auto-open their forms
+    if (role === 'sponsor') {
+      if (location.pathname === '/sponsor' && typeof window.__trustOpenSponsorForm === 'function') {
+        window.__trustOpenSponsorForm();
+        return;
+      }
+      window.location.hash = '#/sponsor';
+    } else if (role === 'site') {
+      if (location.pathname === '/site' && typeof window.__trustOpenSiteForm === 'function') {
+        window.__trustOpenSiteForm();
+        return;
+      }
+      window.location.hash = '#/site';
     } else {
-      // If on different page, navigate to home page with hash
-      window.location.href = '/#contact-form-section';
+      window.location.hash = '#/';
     }
   };
 
@@ -78,7 +84,7 @@ const Navbar = () => {
                     aria-label="TRUST - Go to homepage"
                   >
                     <img 
-                      src="/TRUST/trust-logo-new.png" 
+                      src={`${import.meta.env.BASE_URL}trust-logo-new.png`} 
                       alt="TRUST Logo" 
                       className="h-60 w-80 object-contain"
                     />

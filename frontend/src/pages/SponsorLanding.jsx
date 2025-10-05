@@ -1,17 +1,29 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import RoleSelectionModal from '../components/RoleSelectionModal';
 
 const SponsorLanding = () => {
   const [showForm, setShowForm] = useState(false);
   const [successEmail, setSuccessEmail] = useState('');
   const [showRoleModal, setShowRoleModal] = useState(false);
+  const [formType, setFormType] = useState('sponsor');
 
   const handleRequestProposalClick = (e) => {
     e.preventDefault();
-    setShowRoleModal(true);
+    // Directly open the form for Sponsor flow (no modal)
+    setShowRoleModal(false);
+    setFormType('sponsor');
+    setShowForm(true);
+    setSuccessEmail('');
+    setTimeout(() => {
+      const formElement = document.getElementById('contact-form-section');
+      if (formElement) {
+        formElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
   };
 
   const handleRoleSelect = (role) => {
+    setShowRoleModal(false);
     setFormType(role);
     setShowForm(true);
     setSuccessEmail('');
@@ -30,6 +42,30 @@ const SponsorLanding = () => {
     setShowForm(false);
   };
 
+  // Expose a helper so navbar can open this page's form immediately
+  if (typeof window !== 'undefined') {
+    window.__trustOpenSponsorForm = () => {
+      setFormType('sponsor');
+      setShowForm(true);
+      setSuccessEmail('');
+      setTimeout(() => {
+        const el = document.getElementById('contact-form-section');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+    };
+  }
+
+  // When navigated here from navbar selection, auto-open form
+  useEffect(() => {
+    try {
+      const pending = localStorage.getItem('pendingRole');
+      if (pending === 'sponsor') {
+        localStorage.removeItem('pendingRole');
+        window.__trustOpenSponsorForm();
+      }
+    } catch {}
+  }, []);
+
   return (
     <div className="text-slate-800">
       <RoleSelectionModal
@@ -38,15 +74,14 @@ const SponsorLanding = () => {
         onRoleSelect={handleRoleSelect}
       />
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-teal-50 to-blue-50 py-20 sm:py-24 lg:py-32">
-        {/* Logo in top right */}
-        <div className="absolute top-6 right-6 z-20">
-          <img 
-            src="/TRUST/trust-logo-new.png" 
-            alt="TRUST Logo" 
-            className="h-100 w-120 object-contain opacity-90"
-          />
-        </div>
+      <section className="relative bg-gradient-to-br from-teal-50 to-blue-50 py-12 sm:py-16 lg:py-20">
+        {/* Full hero background icon */}
+        <img
+          src={`${import.meta.env.BASE_URL}trust-icon.png`}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-contain opacity-30 pointer-events-none select-none transform origin-center scale-[4] -translate-x-[8%]"
+        />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight mb-6">
             Sponsor & CRO Solutions

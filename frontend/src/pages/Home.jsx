@@ -92,24 +92,38 @@ const Home = () => {
 
   // Handle scroll to contact section when URL hash is #contact
   useEffect(() => {
+    // Expose a global helper so Navbar can open the form immediately when already on Home
+    window.__trustOpenContactForm = (role) => {
+      try {
+        if (role) setFormType(role);
+        setShowForm(true);
+        setSuccessEmail('');
+        const el = document.getElementById('contact-form-section');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch {}
+    };
+
     const handleHashChange = () => {
-      if (window.location.hash === '#contact') {
+      if (window.location.hash.includes('#contact')) {
         const contactElement = document.getElementById('contact-form-section');
         if (contactElement) {
           contactElement.scrollIntoView({ behavior: 'smooth' });
         }
       }
+
+      // If a pending role was stored by navbar, open the form once on load
+      try {
+        const pending = localStorage.getItem('pendingRole');
+        if (pending) {
+          localStorage.removeItem('pendingRole');
+          window.__trustOpenContactForm(pending);
+        }
+      } catch {}
     };
 
-    // Check on mount
     handleHashChange();
-
-    // Listen for hash changes
     window.addEventListener('hashchange', handleHashChange);
-
-    return () => {
-      window.removeEventListener('hashchange', handleHashChange);
-    };
+    return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
   return (
@@ -120,124 +134,91 @@ const Home = () => {
         onRoleSelect={handleRoleSelect}
       />
       {/* Hero Section */}
-      <section id="hero" className="relative bg-gradient-to-br from-[#0B1220] to-[#10224E] py-20 sm:py-24 lg:py-32 overflow-hidden">
-        {/* Logo in top right */}
-        <div className="absolute top-6 right-6 z-20">
-          <img 
-            src="/TRUST/trust-logo-new.png" 
-            alt="TRUST Logo" 
-            className="h-100 w-120 object-contain opacity-90"
-          />
-        </div>
+      <section id="hero" className="relative bg-gradient-to-br from-teal-50 to-blue-50 py-12 sm:py-16 lg:py-20 overflow-hidden">
+        {/* Full hero background icon */}
+        <img
+          src={`${import.meta.env.BASE_URL}trust-icon.png`}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-contain opacity-30 pointer-events-none select-none transform origin-center scale-[3.5]"
+        />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center max-w-6xl mx-auto lg:translate-x-12">
             {/* Left side - Main content */}
-            <div className="text-center lg:text-left">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#E8EEFC] leading-tight mb-6">
+            <div className="text-center">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight mb-6">
                 Recruit Qualified Subjects—Fast & Predictable
               </h1>
-              <div className="space-y-4 text-lg text-[#A4B0CC]">
-                <div className="flex items-start space-x-3">
-                  <span className="text-[#56F0C8] text-xl mt-1">•</span>
-                  <p>TRUST builds a steady pipeline of pre-qualified subjects so your study meets enrollment targets.</p>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <span className="text-[#56F0C8] text-xl mt-1">•</span>
-                  <p>Our method blends targeted community outreach with nurse-led pre-screening to cut screen-fail rates and keep coordinators focused on visits.</p>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <span className="text-[#56F0C8] text-xl mt-1">•</span>
-                  <p>IRB-ready bilingual materials included.</p>
+              <div className="mt-6 mx-auto max-w-2xl">
+                <div className="rounded-2xl bg-white/80 backdrop-blur border border-white/70 shadow-sm p-6 text-left">
+                  <ul className="space-y-3 text-base sm:text-lg text-slate-700">
+                    <li className="flex items-start gap-3">
+                      <svg className="h-5 w-5 text-[#16B1F0] mt-1 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4A1 1 0 015.707 9.293L8 11.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                      <span>TRUST builds a steady pipeline of pre-qualified subjects so your study meets enrollment targets.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <svg className="h-5 w-5 text-[#16B1F0] mt-1 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4A1 1 0 015.707 9.293L8 11.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                      <span>Our method blends targeted community outreach with nurse-led pre-screening to cut screen-fail rates and keep coordinators focused on visits.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <svg className="h-5 w-5 text-[#16B1F0] mt-1 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4A1 1 0 015.707 9.293L8 11.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                      <span>IRB-ready bilingual materials included.</span>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
             
-            {/* Right side - Interactive Process Flow */}
-            <div className="flex flex-col space-y-3">
-              <div className="flex items-center space-x-2">
-                <div className="relative group">
-                  <span className="bg-[#56F0C8] text-[#0B1220] px-4 py-2 rounded-full text-sm font-semibold cursor-pointer hover:bg-[#56F0C8]/80 transition-colors">
-                    Enrollment
-                  </span>
-                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
-                    Our primary focus is meeting enrollment targets
-                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+          {/* Right side - Flow to Eligible Candidates (Hover-only, consolidated) */}
+          <div className="relative max-w-lg mx-auto lg:ml-16">
+            <h3 className="sr-only">How we get to eligible candidates</h3>
+            <div className="relative pl-8">
+              {/* Vertical connector line */}
+              <div aria-hidden="true" className="absolute left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-[#16B1F0] via-[#56F0C8] to-[#10224E] rounded-full"></div>
+
+              {(() => {
+                const steps = [
+                  { key: 'enrollment', title: 'Enrollment', desc: 'Our primary focus is meeting enrollment targets', dot: 'bg-[#16B1F0] text-white' },
+                  { key: 'materials-marketing', title: 'Materials & Marketing', desc: 'IRB-approved flyers/brochures/landing pages + online outreach', dot: 'bg-[#56F0C8] text-[#0B1220]' },
+                  { key: 'strategy-community', title: 'Strategy & Community', desc: 'Identify communities and execute boots-on-the-ground outreach', dot: 'bg-[#10224E] text-[#E8EEFC]' },
+                  { key: 'screening', title: 'Screening', desc: 'Nurse-led pre-screening verifies eligibility', dot: 'bg-[#16B1F0] text-white' },
+                  { key: 'eligible', title: 'Eligible', desc: 'Qualified, pre-screened subjects ready for enrollment', dot: 'bg-[#56F0C8] text-[#0B1220]' },
+                ];
+                return steps.map((step, index) => (
+                  <div key={step.key} className="relative">
+                    <div className="group relative flex items-start space-x-4 py-2">
+                      <div className={`relative z-10 flex h-8 w-8 items-center justify-center rounded-full ring-4 ring-white shadow-md ${step.dot}`} aria-hidden="true">
+                        {step.key === 'eligible' ? '✓' : index + 1}
+                      </div>
+                      <div className="pt-0.5">
+                        <div className="text-sm font-bold text-slate-900 lg:text-base">
+                          <span className="inline-block px-3 py-1 rounded-full bg-white/70 border border-white/80 text-slate-800">
+                            {step.title}
+                          </span>
+                        </div>
+                        <div className="overflow-hidden transition-all duration-300 max-h-0 opacity-0 group-hover:max-h-24 group-hover:opacity-100">
+                          <p className="text-sm text-slate-600 mt-2 pr-4">{step.desc}</p>
+                        </div>
+                      </div>
+                    </div>
+                    {index < steps.length - 1 && (
+                      <div className="pl-4 py-1" aria-hidden="true">
+                        <svg className="h-5 w-5 text-slate-400 mx-1" viewBox="0 0 20 20" fill="currentColor">
+                          <path d="M10 3a1 1 0 011 1v9.586l2.293-2.293a1 1 0 111.414 1.414l-4.004 4.004a1 1 0 01-1.414 0L4.285 12.707a1 1 0 111.414-1.414L8 13.586V4a1 1 0 011-1z" />
+                        </svg>
+                      </div>
+                    )}
                   </div>
-                </div>
-                <span className="text-[#56F0C8] text-lg">→</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="relative group">
-                  <span className="bg-[#16B1F0] text-white px-4 py-2 rounded-full text-sm font-semibold cursor-pointer hover:bg-[#16B1F0]/80 transition-colors">
-                    Materials
-                  </span>
-                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
-                    IRB approved flyers, brochures, and landing pages
-                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                  </div>
-                </div>
-                <span className="text-[#16B1F0] text-lg">→</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="relative group">
-                  <span className="bg-[#10224E] text-[#E8EEFC] px-4 py-2 rounded-full text-sm font-semibold cursor-pointer hover:bg-[#10224E]/80 transition-colors">
-                    Strategy
-                  </span>
-                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
-                    Simultaneously identify communities and create strategies
-                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                  </div>
-                </div>
-                <span className="text-[#10224E] text-lg">→</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="relative group">
-                  <span className="bg-[#56F0C8] text-[#0B1220] px-4 py-2 rounded-full text-sm font-semibold cursor-pointer hover:bg-[#56F0C8]/80 transition-colors">
-                    Community
-                  </span>
-                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
-                    Primary outreach through local community engagement
-                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                  </div>
-                </div>
-                <span className="text-[#56F0C8] text-lg">→</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="relative group">
-                  <span className="bg-[#16B1F0] text-white px-4 py-2 rounded-full text-sm font-semibold cursor-pointer hover:bg-[#16B1F0]/80 transition-colors">
-                    Marketing
-                  </span>
-                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
-                    Online marketing to reach broader audience
-                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                  </div>
-                </div>
-                <span className="text-[#16B1F0] text-lg">→</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="relative group">
-                  <span className="bg-[#10224E] text-[#E8EEFC] px-4 py-2 rounded-full text-sm font-semibold cursor-pointer hover:bg-[#10224E]/80 transition-colors">
-                    Screening
-                  </span>
-                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
-                    Nurse-led pre-screening for eligibility verification
-                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                  </div>
-                </div>
-                <span className="text-[#10224E] text-lg">→</span>
-              </div>
-              <div className="flex items-center">
-                <div className="relative group">
-                  <span className="bg-[#56F0C8] text-[#0B1220] px-4 py-2 rounded-full text-sm font-semibold font-bold cursor-pointer hover:bg-[#56F0C8]/80 transition-colors">
-                    ✓ Eligible
-                  </span>
-                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
-                    Qualified, pre-screened subjects ready for enrollment
-                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                  </div>
-                </div>
-              </div>
+                ));
+              })()}
             </div>
+          </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
@@ -248,11 +229,7 @@ const Home = () => {
             </button>
           </div>
         </div>
-        {/* Background elements for visual interest */}
-        <div className="absolute top-0 left-0 w-full h-full">
-          <div className="absolute w-64 h-64 bg-[#56F0C8] rounded-full -top-20 -left-20 opacity-10"></div>
-          <div className="absolute w-96 h-96 bg-[#16B1F0] rounded-full -bottom-40 -right-40 opacity-10"></div>
-        </div>
+        
       </section>
 
       {/* What We Do Section */}
@@ -339,7 +316,7 @@ const Home = () => {
             </div>
             <div className="relative h-80 w-full">
               <img
-                src="/TRUST/why-trust-works.png"
+                src={`${import.meta.env.BASE_URL}why-trust-works.png`}
                 alt="Collaborative group discussion showing community engagement and trust"
                 className="rounded-xl shadow-lg object-cover w-full h-full"
               />
